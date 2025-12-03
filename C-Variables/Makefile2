@@ -1,0 +1,91 @@
+# Makefile for C Variables Tutorial
+# Uses exact commands as specified
+
+# Compiler and flags
+CC = gcc
+CFLAGS = -Wall -Wextra -g -I./include
+LDFLAGS = -lm 
+
+# Directories
+BUILD_DIR = build
+UTILS_OBJ = $(BUILD_DIR)/utils.o
+
+# Find all source files
+EXAMPLE_SOURCES = $(wildcard examples/*.c)
+EXERCISE_SOURCES = $(wildcard exercises/*.c)
+
+# Create target names from source names
+EXAMPLE_TARGETS = $(patsubst examples/%.c,$(BUILD_DIR)/examples/%,$(EXAMPLE_SOURCES))
+EXERCISE_TARGETS = $(patsubst exercises/%.c,$(BUILD_DIR)/exercises/%,$(EXERCISE_SOURCES))
+
+# Phony targets
+.PHONY: all clean dirs run run-exercises examples exercises main help
+
+# Default target
+all: dirs $(UTILS_OBJ) $(EXAMPLE_TARGETS) $(EXERCISE_TARGETS) $(BUILD_DIR)/main
+
+# Create build directories
+dirs:
+	mkdir -p $(BUILD_DIR)/examples
+	mkdir -p $(BUILD_DIR)/exercises
+
+# Compile utils.c into object file - EXACT COMMAND FROM YOUR OUTPUT
+$(UTILS_OBJ): src/utils.c
+	gcc -Wall -Wextra -g -I./include -c src/utils.c -o build/utils.o
+
+# Compile each example - pattern rule
+$(BUILD_DIR)/examples/%: examples/%.c $(UTILS_OBJ)
+	gcc -Wall -Wextra -g -I./include $< build/utils.o -o $@
+
+# Compile each exercise - pattern rule  
+$(BUILD_DIR)/exercises/%: exercises/%.c $(UTILS_OBJ)
+	gcc -Wall -Wextra -g -I./include $< build/utils.o -o $@
+
+# Compile main program
+$(BUILD_DIR)/main: src/main.c $(UTILS_OBJ)
+	gcc -Wall -Wextra -g -I./include src/main.c build/utils.o -o $(BUILD_DIR)/main
+
+# Convenience targets
+examples: dirs $(UTILS_OBJ) $(EXAMPLE_TARGETS)
+	@echo "Examples built successfully"
+
+exercises: dirs $(UTILS_OBJ) $(EXERCISE_TARGETS)
+	@echo "Exercises built successfully"
+
+main: dirs $(UTILS_OBJ) $(BUILD_DIR)/main
+	@echo "Main program built successfully"
+
+# Run all examples
+run: examples
+	@echo "Running all examples..."
+	@for exe in $(EXAMPLE_TARGETS); do \
+		echo ""; \
+		echo "=== Running $$(basename $$exe) ==="; \
+		$$exe; \
+	done
+
+# Run all exercises
+run-exercises: exercises
+	@echo "Running all exercises..."
+	@for exe in $(EXERCISE_TARGETS); do \
+		echo ""; \
+		echo "=== Running $$(basename $$exe) ==="; \
+		$$exe; \
+	done
+
+# Clean build directory
+clean:
+	rm -rf $(BUILD_DIR)
+	@echo "Cleaned build directory"
+
+# Help
+help:
+	@echo "Available targets:"
+	@echo "  all           - Build everything (default)"
+	@echo "  examples      - Build all examples"
+	@echo "  exercises     - Build all exercises"
+	@echo "  main          - Build main program"
+	@echo "  run           - Build and run all examples"
+	@echo "  run-exercises - Build and run all exercises"
+	@echo "  clean         - Remove build directory"
+	@echo "  help          - Show this help message"

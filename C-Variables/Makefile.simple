@@ -1,0 +1,82 @@
+#!/bin/bash
+# Shell-based Makefile alternative
+
+CC="gcc"
+CFLAGS="-Wall -Wextra -g -I./include"
+BUILD_DIR="build"
+
+case "$1" in
+    all)
+        $0 clean
+        $0 dirs
+        $0 examples
+        $0 exercises
+        $0 main
+        ;;
+    dirs)
+        mkdir -p "$BUILD_DIR/examples"
+        mkdir -p "$BUILD_DIR/exercises"
+        ;;
+    examples)
+        echo "Building examples..."
+        for file in examples/*.c; do
+            if [ -f "$file" ]; then
+                name=$(basename "$file" .c)
+                echo "Compiling $name..."
+                $CC $CFLAGS "$file" -o "$BUILD_DIR/examples/$name"
+            fi
+        done
+        ;;
+    exercises)
+        echo "Building exercises..."
+        for file in exercises/*.c; do
+            if [ -f "$file" ]; then
+                name=$(basename "$file" .c)
+                echo "Compiling $name..."
+                $CC $CFLAGS "$file" -o "$BUILD_DIR/exercises/$name"
+            fi
+        done
+        ;;
+    main)
+        echo "Building main project..."
+        $CC $CFLAGS src/main.c src/utils.c -o "$BUILD_DIR/main"
+        ;;
+    run)
+        $0 examples
+        echo "Running examples..."
+        for exe in "$BUILD_DIR"/examples/*; do
+            if [ -x "$exe" ]; then
+                echo -e "\n=== Running $(basename "$exe") ==="
+                "$exe"
+            fi
+        done
+        ;;
+    run-exercises)
+        $0 exercises
+        echo "Running exercises..."
+        for exe in "$BUILD_DIR"/exercises/*; do
+            if [ -x "$exe" ]; then
+                echo -e "\n=== Running $(basename "$exe") ==="
+                "$exe"
+            fi
+        done
+        ;;
+    clean)
+        echo "Cleaning build files..."
+        rm -rf "$BUILD_DIR"
+        ;;
+    help|*)
+        echo "Usage: $0 {all|dirs|examples|exercises|main|run|run-exercises|clean|help}"
+        echo ""
+        echo "Commands:"
+        echo "  all          - Build everything"
+        echo "  dirs         - Create build directories"
+        echo "  examples     - Build all examples"
+        echo "  exercises    - Build all exercises"
+        echo "  main         - Build main project"
+        echo "  run          - Run all examples"
+        echo "  run-exercises - Run all exercises"
+        echo "  clean        - Remove build files"
+        echo "  help         - Show this help"
+        ;;
+esac

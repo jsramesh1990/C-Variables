@@ -1,0 +1,72 @@
+
+## 2. Makefile
+
+```makefile
+CC = gcc
+CFLAGS = -Wall -Wextra -g -I./include
+EXAMPLES_DIR = examples
+EXERCISES_DIR = exercises
+BUILD_DIR = build
+EXAMPLES_BUILD_DIR = $(BUILD_DIR)/examples
+EXERCISES_BUILD_DIR = $(BUILD_DIR)/exercises
+SRC_DIR = src
+
+# List of example source files
+EXAMPLES_SRC = $(wildcard $(EXAMPLES_DIR)/*.c)
+EXAMPLES_BIN = $(patsubst $(EXAMPLES_DIR)/%.c,$(EXAMPLES_BUILD_DIR)/%,$(EXAMPLES_SRC))
+
+# List of exercise source files
+EXERCISES_SRC = $(wildcard $(EXERCISES_DIR)/*.c)
+EXERCISES_BIN = $(patsubst $(EXERCISES_DIR)/%.c,$(EXERCISES_BUILD_DIR)/%,$(EXERCISES_SRC))
+
+# Main project executable
+MAIN_TARGET = $(BUILD_DIR)/main
+
+.PHONY: all examples exercises main clean run
+
+all: examples exercises main
+
+# Create build directories
+$(BUILD_DIR) $(EXAMPLES_BUILD_DIR) $(EXERCISES_BUILD_DIR):
+	@mkdir -p $@
+
+# Build examples
+examples: $(BUILD_DIR) $(EXAMPLES_BUILD_DIR) $(EXAMPLES_BIN)
+
+# Build exercises
+exercises: $(BUILD_DIR) $(EXERCISES_BUILD_DIR) $(EXERCISES_BIN)
+
+# Build main project
+main: $(BUILD_DIR) $(MAIN_TARGET)
+
+# Compile examples
+$(EXAMPLES_BUILD_DIR)/%: $(EXAMPLES_DIR)/%.c
+	$(CC) $(CFLAGS) $< -o $@
+
+# Compile exercises
+$(EXERCISES_BUILD_DIR)/%: $(EXERCISES_DIR)/%.c
+	$(CC) $(CFLAGS) $< -o $@
+
+# Compile main project
+$(MAIN_TARGET): $(SRC_DIR)/main.c $(SRC_DIR)/utils.c
+	$(CC) $(CFLAGS) $< $(SRC_DIR)/utils.c -o $@
+
+# Run all examples
+run: examples
+	@echo "Running all examples..."
+	@for exe in $(EXAMPLES_BIN); do \
+		echo "\n=== Running $$(basename $$exe) ==="; \
+		$$exe; \
+	done
+
+# Run all exercises
+run-exercises: exercises
+	@echo "Running all exercises..."
+	@for exe in $(EXERCISES_BIN); do \
+		echo "\n=== Running $$(basename $$exe) ==="; \
+		$$exe; \
+	done
+
+# Clean build files
+clean:
+	rm -rf $(BUILD_DIR)
