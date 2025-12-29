@@ -1,5 +1,17 @@
 # C Variables Tutorial
 
+https://img.shields.io/badge/Language-C-blue?style=for-the-badge&logo=c&logoColor=white
+https://img.shields.io/badge/License-MIT-green?style=for-the-badge
+https://img.shields.io/badge/Platform-Linux%2520%257C%2520macOS%2520%257C%2520WSL-blue?style=for-the-badge
+https://img.shields.io/badge/Build-Passing-brightgreen?style=for-the-badge
+https://img.shields.io/badge/Difficulty-Beginner%2520to%2520Advanced-yellow?style=for-the-badge
+https://img.shields.io/badge/Code%2520Quality-Clean-success?style=for-the-badge
+https://img.shields.io/badge/Last%2520Updated-January%25202024-orange?style=for-the-badge
+
+https://img.shields.io/badge/GCC-9%252B-blue?style=flat-square&logo=gnu
+https://img.shields.io/badge/Build%2520System-Make-ff69b4?style=flat-square&logo=gnu
+https://img.shields.io/badge/C%2520Standard-C11-00599C?style=flat-square&logo=c
+
 A comprehensive tutorial covering C programming variables with examples and exercises.
 
 ##  Table of Contents
