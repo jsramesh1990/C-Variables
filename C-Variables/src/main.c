@@ -73,7 +73,7 @@ int main(int argc, char *argv[]) {
     
     do {
         printf("\nMAIN MENU\n");
-        printf("=========\n");
+        printf("==========================\n");
         printf("1. Basic Variables Example\n");
         printf("2. Variable Initialization Example\n");
         printf("3. Accessing Variables Example\n");
@@ -86,6 +86,7 @@ int main(int argc, char *argv[]) {
         printf("10. Demonstrate All Concepts\n");
         printf("11. Show Variable Rules\n");
         printf("12. Exit\n");
+        printf("==========================\n");
         printf("\nEnter your choice (1-12): ");
         
         // In a real program, you'd use scanf, but for simplicity:
