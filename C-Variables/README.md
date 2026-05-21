@@ -2,17 +2,17 @@
 
 A comprehensive guide to understanding and working with variables in C programming language.
 
-## 📚 Overview
+##  Overview
 
 A variable in C is a named piece of memory which is used to store data and access it whenever required. It allows us to use the memory without having to memorize the exact memory address.
 
-## 📁 Project Structure
+##  Project Structure
 
 - **examples/**: Complete code examples demonstrating different aspects of C variables
 - **exercises/**: Practice exercises to test your understanding
 - **concepts/**: Detailed explanations of variable concepts
 
-## 🚀 Getting Started
+##  Getting Started
 
 ### Prerequisites
 - GCC compiler installed
