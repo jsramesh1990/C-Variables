@@ -398,12 +398,12 @@ This tutorial is available for educational purposes. Feel free to use and modify
 ![Completion Badge](https://img.shields.io/badge/Certificate%20of%20Completion-✓-success?style=for-the-badge)
 
 After completing all examples and exercises, you'll have mastered:
-- ✓ Variable declaration and initialization
-- ✓ Understanding of all C data types
-- ✓ Memory management concepts
-- ✓ Scope and lifetime rules
-- ✓ Type conversion and casting
-- ✓ Practical debugging skills
+-  Variable declaration and initialization
+-  Understanding of all C data types
+-  Memory management concepts
+-  Scope and lifetime rules
+-  Type conversion and casting
+-  Practical debugging skills
 
 ---
 
