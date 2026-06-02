@@ -387,11 +387,6 @@ Found an issue or want to improve the tutorial?
 3. Make your changes
 4. Submit a pull request
 
-##  License
-
-![MIT License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)
-
-This tutorial is available for educational purposes. Feel free to use and modify for learning.
 
 ##  Certificate of Completion
 
